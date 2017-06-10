@@ -170,12 +170,6 @@ class CustomerActivity extends Activity implements MultiImageSelectorFragment.Ca
 
 -------------------
 
-###Thanks
-
-* [square-picasso](https://github.com/square/picasso) A powerful image downloading and caching library for Android 
-
--------------------
-
 ###License
 >The MIT License (MIT)
 
