@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -167,14 +169,26 @@ public class MultiImageSelectorActivity extends AppCompatActivity
     @Override
     public void onCameraShot(File imageFile) {
         if(imageFile != null) {
+            Message message = new Message();
+            message.what = 100;
+            message.obj = imageFile;
+            handler.sendMessageDelayed(message, 200);
+        }
+    }
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
             // notify system the image has change
-            sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(imageFile)));
+            sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile((File) msg.obj)));
 
             Intent data = new Intent();
-            resultList.add(imageFile.getAbsolutePath());
+            resultList.add(((File) msg.obj).getAbsolutePath());
             data.putStringArrayListExtra(EXTRA_RESULT, resultList);
             setResult(RESULT_OK, data);
             finish();
         }
-    }
+    };
 }
