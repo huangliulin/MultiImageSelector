@@ -172,7 +172,7 @@ public class MultiImageSelectorActivity extends AppCompatActivity
             Message message = new Message();
             message.what = 100;
             message.obj = imageFile;
-            handler.sendMessageDelayed(message, 200);
+            handler.sendMessageDelayed(message, 500);
         }
     }
 
